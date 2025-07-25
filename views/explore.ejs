@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore • People</title>
+  <link rel="stylesheet" href="/sty.css"/>
+</head>
+<body>
+
+  <%- include('partials/sidebar') %>
+
+  <main class="explore-main">
+    <h1>Explore People</h1>
+
+    <div class="people-grid">
+      <% users.forEach(u=>{ %>
+        <div class="person-card">
+          <a href="/profile/<%= u.username %>">
+            <img src="<%= u.profile_pic_url || '/default.png' %>" alt="avatar">
+          </a>
+          <h3><a href="/profile/<%= u.username %>"><%= u.username %></a></h3>
+
+          <% if (u.is_following) { %>
+            <form action="/unfollow/<%= u.username %>" method="POST">
+              <button type="submit" class="unfollow">Unfollow</button>
+            </form>
+          <% } else { %>
+            <form action="/follow/<%= u.username %>" method="POST">
+              <button type="submit">Follow</button>
+            </form>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+
+  <%- include('partials/side2') %>
+</body>
+</html>

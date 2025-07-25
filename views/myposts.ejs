@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Posts</title>
+  <link rel="stylesheet" href="/sty.css">
+</head>
+<body>
+  <h1>My Posts</h1>
+  <%- include ('./partials/sidebar') %>
+  <main class="main-rail">
+  <div class="posts-container">
+    <% if (posts.length === 0) { %>
+      <p>You haven't posted anything yet.</p>
+    <% } else { %>
+      <% posts.forEach(post => { %>
+        <div class="post-card">
+          <div class="post-header">
+                <div class="post-avatar">
+                    <img src="<%= post.profile_pic_url || '/default.png' %>"
+                        alt="avatar of <%= post.username %>"
+                        loading="lazy">
+                </div>
+
+                <a href="/profile/<%= post.username %>" class="username-link">
+                    <%= post.username %>
+                </a>
+          </div>
+
+          <p><%= post.caption %></p>
+          <% if (post.image_url) { %>
+            <img src="<%= post.image_url %>" alt="Post Image" width="300">
+          <% } %>
+          <form action="/posts/<%= post.id %>/delete" method="POST" onsubmit="return confirm('Delete this post?');">
+            <button type="submit">🗑 Delete</button>
+          </form>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+  </main>
+  <%- include ('./partials/side2') %>
+</body>
+</html>

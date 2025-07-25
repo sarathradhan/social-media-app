@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/sty.css">
+</head>
+<body>
+    <h1>Posts</h1>
+    <%- include('partials/sidebar') %>
+    <main class="main-rail">
+    <div class="posts-container">
+        <% posts.forEach(post => { %>
+        <div class="post-card">
+            <div class="post-header">
+                <div class="post-avatar">
+                <img src="<%= post.profile_pic_url || '/default.png' %>" alt="avatar" loading="lazy">
+                </div>
+                <a href="/profile/<%= post.username %>" class="username-link"><%= post.username %></a>
+            </div>
+
+            <p><%= post.caption %></p>
+            <% if (post.image_url) { %>
+                <img src="<%= post.image_url %>" alt="Post Image">
+            <% } %>
+
+            <button id="like-button-<%= post.id %>"
+                    class="like-btn <%= post.user_liked ? 'liked' : '' %>"
+                    data-id="<%= post.id %>"
+                    type="button"
+                    onclick="toggleLike('<%= post.id %>')">
+                <span class="heart"></span>
+                <span class="count" id="likes-<%= post.id %>"><%= post.like_count %></span>
+            </button>
+        </div>
+
+        <% }); %>
+    </div>
+    </main>
+    <%- include ('partials/side2') %>
+    
+    <script>
+    async function toggleLike(postId){
+        const btn   = document.getElementById(`like-button-${postId}`);
+        const count = document.getElementById(`likes-${postId}`);
+
+        try{
+            const res = await fetch(`/posts/${postId}/like`, { method:"POST" });
+            if(!res.ok){ alert(await res.text()); return; }
+
+            const liked   = btn.classList.toggle("liked");
+            const current = parseInt(count.textContent, 10);
+            count.textContent = liked ? current + 1 : current - 1;
+
+        }catch(e){
+            console.error("Like error:", e);
+            alert("Failed to like. Try again?");
+        }
+    }
+    </script>
+
+
+</body>
+</html>

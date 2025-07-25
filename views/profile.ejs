@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= user.username %> • Profile</title>
+  <link rel="stylesheet" href="/sty.css" />
+  <style>
+  
+  </style>
+</head>
+<body>
+
+  <%- include('partials/sidebar') %>
+
+  <main class="profile-main">
+
+    <section class="profile-wrap">
+      <img
+        src="<%= user.profile_pic_url || '/default.png' %>"
+        alt="avatar"
+        class="avatar">
+
+      <div class="meta">
+        <h2><%= user.username %></h2>
+        <div class="stats">
+        <span><%= posts.length %> posts</span>
+        <span>
+            <%= followerCount %> followers
+        </span>
+        <span>
+            <%= followingCount %> following
+        </span>
+      </div>
+        <% if (user.bio) { %>
+          <p class="bio" id="bio-text"><%= user.bio %></p>
+        <% } else if (isOwner) { %>
+          <p class="bio" id="bio-text" style="font-style:italic;color:#777;">Add a bio…</p>
+        <% } %>
+
+        <% if (isOwner) { %>
+          <button class="edit-toggle" onclick="toggleEdit()">Edit profile</button>
+
+          <form class="edit-box" id="edit-box" action="/profile/edit" method="POST" enctype="multipart/form-data">
+            <label><strong>Change avatar</strong></label>
+            <input type="file" name="avatar" accept="image/*">
+
+            <label><strong>Edit bio</strong></label>
+            <textarea name="bio"><%= user.bio || '' %></textarea>
+
+            <button type="submit">Save changes</button>
+          </form>
+        <% } %>
+      </div>
+    </section>
+
+    <section>
+      <% if (posts.length === 0) { %>
+        <p style="margin-top:40px;color:#777;"> "<%= user.username %>" haven’t posted anything yet.</p>
+      <% } else { %>
+        <div class="grid">
+          <% posts.forEach(p => { %>
+              <img src="<%= p.image_url %>" alt="post">
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+
+  </main>
+
+  <%- include('partials/side2') %>
+
+  <script>
+    function toggleEdit() {
+      const box = document.getElementById('edit-box');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

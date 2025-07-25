@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/sty.css">
+</head>
+<body>
+    <h1>Posts</h1>
+    <%- include ('./partials/sidebar') %>
+    <div class="ennamo">
+          <div class="post-form">
+            <h2>Create a New Post</h2>
+            <form action="/posts" method="POST" enctype="multipart/form-data">
+                <label for="caption">Caption</label>
+                <textarea name="caption" id="caption" placeholder="Write something amazing..." required></textarea>
+
+                <label for="image">Upload Image</label>
+                <input type="file" name="image" id="image" accept="image/*" required>
+
+                <button type="submit">📤 Upload Post</button>
+            </form>
+        </div>
+    </div>
+    <%- include ('./partials/side2') %>
+</body>
+</html>

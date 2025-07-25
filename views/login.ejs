@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesy.css">
+</head>
+<body>
+    <section class="login">
+        <div class="middle">
+            <div class="image">
+                <img src="roseate-02.jpeg" alt="Decorative Image">
+            </div>
+            <div class="right">
+                <h1>Welcome Back</h1>
+                <form action="/login" method="POST">
+                    <label for="uname">Username:</label><br>
+                    <input type="text" id="uname" name="username" placeholder="Enter your username" required><br>
+                    <label for="pwd">Password:</label><br>
+                    <input type="password" id="pwd" name="password" placeholder="Enter your Password" required><br>
+                    <input type="submit" value="Login">
+                </form>
+                <div class="line"></div>
+                <h1 style="font-size: 10px;">Or</h1>
+                <div class="socials">
+                    <a href="/auth/google"><img src="ICONS/google.png" alt=""></a>
+                    <a href=""><img src="ICONS/apple.png" alt=""></a>
+                    <a href=""><img src="ICONS/twitter.png" alt=""></a>   
+                </div>
+                <h1 style="font-size: 10px; color: rgb(138, 138, 138);">Don't have an account yet? <span><a href="/signup" style="color: rgb(138, 138, 138);">Sign In</a></span></h1>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

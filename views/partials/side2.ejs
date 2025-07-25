@@ -1,0 +1,31 @@
+<div class="side2">
+  <div class="sbar">
+    <div class="bar"></div>
+  </div>
+
+  <div class="login-signup">
+    <% if (session && session.username) { %>
+      <p>Welcome, <strong><%= session.username %></strong> | <a href="/logout">Logout</a></p>
+    <% } else { %>
+      <a href="/login">Login</a> |
+      <a href="/signup">Signup</a>
+    <% } %>
+  </div>
+
+  <div class="vids">
+    <h1>Following</h1>
+
+    <% if (followedUsers.length === 0) { %>
+        <p style="color:#777;font-size:.9rem;">Follow people to see them here.</p>
+    <% } else { %>
+        <% followedUsers.forEach(u=>{ %>
+        <div class="vid-row" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <img src="<%= u.profile_pic_url || '/default.png' %>"
+                style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+            <a href="/profile/<%= u.username %>"><%= u.username %></a>
+        </div>
+        <% }) %>
+    <% } %>
+   </div>
+
+</div>
