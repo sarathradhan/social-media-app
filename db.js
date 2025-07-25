@@ -13,5 +13,4 @@ db.connect()
   .then(() => console.log("✅ Connected to Render PostgreSQL"))
   .catch(err => console.error("❌ DB Connection Error:", err));
 
-export { db };
 export default db; 
