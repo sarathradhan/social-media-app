@@ -2,11 +2,16 @@ import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 
-import pg from "pg";
-const db = new pg.Client({
+export const db = new pg.Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
-db.connect();
+
+db.connect()
+  .then(() => console.log("✅ Connected to Render PostgreSQL"))
+  .catch(err => console.error("❌ DB Connection Error:", err));
+
 export { db };
 export default db; 
