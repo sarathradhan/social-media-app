@@ -30,8 +30,11 @@ passport.use(
 
         if (rows.length === 0) {
             ({rows} = await db.query(
-              "INSERT INTO users (google_id, username, profile_pic_url) VALUES ($1, $2, $3) RETURNING *",
-              [googleId, name, avatar]
+                `INSERT INTO users (google_id, username, profile_pic_url)
+                VALUES ($1, $2, $3)
+                ON CONFLICT (username) DO UPDATE SET google_id = EXCLUDED.google_id, profile_pic_url = EXCLUDED.profile_pic_url
+                RETURNING *`,
+                [googleId, name, avatar]
             ));
         }
         done(null, rows[0]);
