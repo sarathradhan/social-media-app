@@ -9,7 +9,6 @@ export const db = new pg.Client({
     rejectUnauthorized: false
   }
 });
-console.log("DATABASE_URL =>", process.env.DATABASE_URL);
 
 db.connect()
   .then(() => console.log("✅ Connected to Render PostgreSQL"))
